@@ -1,0 +1,18 @@
+services:
+  ars:
+    environment:
+      N8N_WEBHOOK_URL: http://webhook-lab:3100/events
+    depends_on:
+      - webhook-lab
+  webhook-lab:
+    build: .
+    command: ["node", "lab.mjs"]
+    restart: unless-stopped
+    environment:
+      LAB_SECRET: ${N8N_WEBHOOK_SECRET:?Set N8N_WEBHOOK_SECRET}
+    ports:
+      - "127.0.0.1:3100:3100"
+    volumes:
+      - lab_data:/app/data
+volumes:
+  lab_data:

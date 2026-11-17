@@ -1,0 +1,14 @@
+# Copy this file to compose.apps.yaml and replace the placeholders.
+# Add one service per additional app. Do not install apps inside the ARS container.
+services:
+  extra-app:
+    image: REPLACE_WITH_OFFICIAL_IMAGE_AND_VERSION
+    ports:
+      - "127.0.0.1:8080:8080"
+    # Set the correct port, storage path, and environment variables for that app.
+    # environment:
+    #   EXAMPLE_KEY: ${EXAMPLE_KEY}
+    # volumes:
+    #   - extra_data:/replace/with/apps/data/path
+# volumes:
+#   extra_data:

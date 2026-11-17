@@ -1,0 +1,17 @@
+services:
+  ars:
+    depends_on: !reset []
+    expose:
+      - "3000"
+    ports: !reset []
+    environment:
+      PUBLIC_URL: ${ARS_PUBLIC_URL:?Set ARS_PUBLIC_URL after the Cloudflare Access hostname is configured}
+      COOKIE_SECURE: "true"
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    restart: unless-stopped
+    command: tunnel --no-autoupdate run --token ${CLOUDFLARE_TUNNEL_TOKEN:?Set CLOUDFLARE_TUNNEL_TOKEN in .env}
+    depends_on:
+      - ars
+  n8n:
+    ports: !reset []
